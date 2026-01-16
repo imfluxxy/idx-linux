@@ -19,17 +19,6 @@ see [INSTALLATION_GUIDE.md](./INSTALLATION_GUIDE.md) for complete step-by-step i
 - base system installation
 - UEFI bootloader setup
 - desktop environment installation (KDE Plasma or XFCE)
-- SSH access setup
-- performance tips
-
-## system specifications
-
-- **storage**: 24GB virtual disk (QCOW2 format)
-- **RAM**: 8GB
-- **CPU**: 8 cores (host mode)
-- **GPU**: VMware SVGA with 512MB VRAM
-- **network**: VirtIO with SSH port forwarding
-- **firmware**: UEFI (OVMF)
 
 ## accessing your VM
 
@@ -47,8 +36,8 @@ idx-linux/
 
 ## related projects
 
-- [idx-windows-gui](https://github.com/kmille36/idx-windows-gui) - Windows 11 QEMU setup
-- [idx-macos](https://github.com/imfluxxy/idx-macos) - macOS QEMU setup
+- [idx-windows-gui](https://github.com/kmille36/idx-windows-gui) - Windows 11 QEMU IDX workspace setup
+- [idx-macos](https://github.com/imfluxxy/idx-macos) - macOS QEMU IDX workspace setup
 - [OSX-KVM](https://github.com/kholia/OSX-KVM) - virtual Hackintosh setup
 
 ## troubleshooting
