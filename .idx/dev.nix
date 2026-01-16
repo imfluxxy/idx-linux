@@ -112,8 +112,7 @@
         -device virtio-rng-pci \
         -device ich9-ahci,id=sata \
         -smbios type=2 \
-        -vga vmware-svga \
-        -global vmware-svga.vram=512 \
+        -device qxl-vga,vram_size=512M \
         -net nic,netdev=n0,model=virtio-net-pci \
         -netdev user,id=n0,hostfwd=tcp::2222-:22 \
         -boot d \
