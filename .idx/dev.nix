@@ -13,7 +13,7 @@
   ];
 
   idx.workspace.onStart = {
-    archlinux = ''
+    linux = ''
       set -e
 
       # =========================
@@ -32,14 +32,16 @@
       # =========================
       # Paths
       # =========================
-      VM_DIR="$HOME/qemu"
+      PROJECT_DIR="$HOME/idx-linux"
+      VM_DIR="$PROJECT_DIR/qemu"
       RAW_DISK="$VM_DIR/archlinux.qcow2"
       ARCH_ISO="$VM_DIR/archlinux-x86_64.iso"
-      NOVNC_DIR="$HOME/noVNC"
-      OVMF_DIR="$HOME/qemu/ovmf"
+      NOVNC_DIR="$PROJECT_DIR/noVNC"
+      OVMF_DIR="$VM_DIR/ovmf"
       OVMF_CODE="$OVMF_DIR/OVMF_CODE.fd"
       OVMF_VARS="$OVMF_DIR/OVMF_VARS.fd"
 
+      mkdir -p "$PROJECT_DIR"
       mkdir -p "$OVMF_DIR"
       mkdir -p "$VM_DIR"
 
@@ -162,7 +164,7 @@
         echo "========================================="
         echo " 🌍 Arch Linux QEMU + noVNC ready:"
         echo "     $URL/vnc.html"
-        echo "     $URL/vnc.html" > /home/user/idx-linux/noVNC-URL.txt
+        echo "     $URL/vnc.html" > "$PROJECT_DIR/noVNC-URL.txt"
         echo "========================================="
       else
         echo "❌ Cloudflared tunnel failed, but QEMU is running"
