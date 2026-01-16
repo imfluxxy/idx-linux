@@ -102,29 +102,28 @@
       echo "Starting QEMU with Arch Linux..."
       nohup qemu-system-x86_64 \
         -enable-kvm \
-        -cpu host,kvm=on,vendor=GenuineIntel,+invtsc,vmware-cpuid-freq=on,+ssse3,+sse4.2,+popcnt,+avx,+aes,+xsave,+xsaveopt,check \
-        -smp 4,cores=2,sockets=1 \
-        -M q35,usb=on \
-        -device ich9-intel-hda -device hda-duplex
-        -device ich9-ahci,id=sata
-        -smbios type=2
-        -device usb-tablet \
+        -cpu host \
+        -smp 4,cores=4 \
+        -M q35 \
         -m 4096 \
+        -device usb-tablet \
         -device virtio-balloon-pci \
+        -device virtio-serial-pci \
+        -device virtio-rng-pci \
+        -device ich9-ahci,id=sata \
+        -smbios type=2 \
         -vga vmware-svga \
         -global vmware-svga.vram=512 \
         -net nic,netdev=n0,model=virtio-net-pci \
         -netdev user,id=n0,hostfwd=tcp::2222-:22 \
         -boot d \
-        -device virtio-serial-pci \
-        -device virtio-rng-pci \
-        -device ide-hd,bus=sata.1,drive=main
         -drive if=pflash,format=raw,readonly=on,file="$OVMF_CODE" \
         -drive if=pflash,format=raw,file="$OVMF_VARS" \
-        -drive id=main,if=none file="$RAW_DISK",format=qcow2,if=virtio \
+        -drive file="$RAW_DISK",format=qcow2,if=ide,bus=sata.0 \
         -cdrom "$ARCH_ISO" \
         -vnc :0 \
         -display none \
+        -monitor none \
         > /tmp/qemu.log 2>&1 &
 
       QEMU_PID=$!
