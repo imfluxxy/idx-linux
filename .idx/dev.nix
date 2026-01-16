@@ -106,19 +106,21 @@
         -smp 4,cores=4 \
         -M q35 \
         -m 4096 \
+        -device usb-ehci,id=ehci \
         -device usb-tablet \
         -device virtio-balloon-pci \
         -device virtio-serial-pci \
         -device virtio-rng-pci \
         -device ich9-ahci,id=sata \
         -smbios type=2 \
-        -device qxl-vga,vram_size=512M \
+        -device qxl-vga,vram_size=536870912 \
         -net nic,netdev=n0,model=virtio-net-pci \
         -netdev user,id=n0,hostfwd=tcp::2222-:22 \
         -boot d \
         -drive if=pflash,format=raw,readonly=on,file="$OVMF_CODE" \
         -drive if=pflash,format=raw,file="$OVMF_VARS" \
-        -drive file="$RAW_DISK",format=qcow2,if=ide,bus=sata.0 \
+        -drive id=main,file="$RAW_DISK",format=qcow2,if=none \
+        -device ide-hd,bus=sata.0,drive=main \
         -cdrom "$ARCH_ISO" \
         -vnc :0 \
         -display none \
@@ -165,8 +167,7 @@
         echo "     $URL/vnc.html" > "$PROJECT_DIR/noVNC-URL.txt"
         echo "========================================="
       else
-        echo "❌ Cloudflared tunnel failed, but QEMU is running"
-        echo "You can access noVNC at: http://localhost:8888/vnc.html"
+        echo "❌ Cloudflared tunnel failed"
       fi
 
       # =========================
